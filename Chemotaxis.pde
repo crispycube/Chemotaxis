@@ -1,4 +1,5 @@
 Atom [] atoms;
+boolean follow = false;
 void setup(){
   size(500, 500);
   background(0);
@@ -31,7 +32,7 @@ void draw(){
 }
 
 void mouseClicked(){
-  
+  follow = !follow;
 }
 
 class Atom{
@@ -44,16 +45,26 @@ class Atom{
     myColor = col;
   }
   void move(){
-    int offset = 0;
-    for(int i = 0; i < atoms.length; i++){
-      if(symbol == atoms[i].symbol){
-        
+    if(myX > mouseX && myX - mouseX > 100 && follow){
+      myX += (int)(Math.random()*3 - 2);
+    } else if(myX < mouseX && mouseX - myX > 100 && follow){
+      myX -= (int)(Math.random()*3 - 2);
+    } else {
+      myX += (int)(Math.random()*3) - 1;
+    }
+    
+    if(myY > mouseY && myY - mouseY > 100 && follow){
+      myY += (int)(Math.random()*3) - 2;
+    } else if(myY < mouseY && mouseY - myY > 100 && follow){
+      myY -= (int)(Math.random()*3) - 2;
+    } else {
+      myY += (int)(Math.random()*3) - 1;
     }
   }   
   void show(){
     fill(myColor);
     ellipse(myX, myY, 25, 25);
     fill(0);
-    text(symbol, myX, myY);
+    text(symbol, myX - 3, myY);
   }
 }
